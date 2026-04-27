@@ -171,147 +171,12 @@ body{
 .bdgp{background:var(--grl);color:var(--gr)}
 .bdgu{background:var(--rdl);color:var(--rd)}
 
-/* ===================== BILL LAYOUT ===================== */
-.bill-wrapper{
-  background:var(--card);
-  border-radius:16px;
-  border:1px solid var(--bd);
-  overflow:hidden;
-  margin-bottom:18px;
-  box-shadow:0 4px 20px rgba(0,0,0,0.08);
-}
-
-/* Bill top accent bar */
-.bill-accent{
-  height:5px;
-  background:linear-gradient(90deg,var(--pr),#F39C12);
-}
-
-/* Bill Header */
-.bill-header{
-  background:linear-gradient(135deg,#FFF9F4 0%,#FEF3E2 100%);
-  padding:18px 18px 14px;
-  border-bottom:1px dashed var(--bd);
-  position:relative;
-}
-@media(prefers-color-scheme:dark){
-  .bill-header{background:linear-gradient(135deg,#2A1E10 0%,#1E1510 100%)}
-}
-.bill-brand{
-  display:flex;align-items:center;gap:10px;margin-bottom:4px;
-}
-.bill-logo{
-  width:38px;height:38px;border-radius:10px;
-  background:var(--pr);color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;flex-shrink:0;
-}
-.bill-brand-name{font-size:17px;font-weight:700;color:var(--pr);line-height:1.1}
-.bill-brand-sub{font-size:11px;color:var(--mt);margin-top:2px}
-.bill-number{
-  position:absolute;top:16px;right:16px;
-  font-size:10px;font-weight:600;color:var(--mt);
-  background:var(--bg);border:1px solid var(--bd);
-  padding:3px 8px;border-radius:20px;letter-spacing:.3px;
-}
-
-/* Bill Info Row */
-.bill-info-row{
-  display:flex;justify-content:space-between;align-items:flex-start;
-  padding:14px 18px;
-  border-bottom:1px dashed var(--bd);
-  gap:12px;
-}
-.bill-customer-block{flex:1;min-width:0}
-.bill-label{font-size:10px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
-.bill-customer-name{font-size:16px;font-weight:700;color:var(--tx);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bill-customer-meta{font-size:12px;color:var(--mt);line-height:1.5}
-.bill-period-block{text-align:right;flex-shrink:0}
-.bill-period-month{font-size:15px;font-weight:700;color:var(--pr)}
-.bill-period-year{font-size:12px;color:var(--mt);margin-top:1px}
-.bill-date-issued{font-size:11px;color:var(--mt);margin-top:4px}
-
-/* Bill Table */
-.bill-table{width:100%;padding:0 18px;margin:14px 0 0}
-.bill-table-head{
-  display:grid;grid-template-columns:1fr auto auto;gap:6px;
-  padding:6px 10px;border-radius:7px;
-  background:var(--prl);margin-bottom:6px;
-}
-@media(prefers-color-scheme:dark){.bill-table-head{background:rgba(230,126,34,.15)}}
-.bill-th{font-size:10px;font-weight:700;color:var(--prd);text-transform:uppercase;letter-spacing:.5px}
-.bill-th:nth-child(2),.bill-th:nth-child(3){text-align:right}
-.bill-row{
-  display:grid;grid-template-columns:1fr auto auto;gap:6px;
-  padding:9px 10px;border-bottom:1px solid var(--bd);align-items:center;
-}
-.bill-row:last-child{border-bottom:none}
-.bill-row-icon{font-size:15px;margin-right:5px}
-.bill-row-name{font-size:13px;color:var(--tx);display:flex;align-items:center}
-.bill-row-qty{font-size:13px;font-weight:600;color:var(--mt);text-align:right}
-.bill-row-amt{font-size:14px;font-weight:700;color:var(--tx);text-align:right}
-.bill-row.zero .bill-row-name,.bill-row.zero .bill-row-qty,.bill-row.zero .bill-row-amt{opacity:.4}
-
-/* Subtotal and Total */
-.bill-subtotal-row{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:8px 10px;
-  margin:0 18px;
-  font-size:13px;color:var(--mt);
-}
-.bill-divider{
-  margin:4px 18px;
-  border:none;border-top:1.5px dashed var(--bd);
-}
-
-/* Total row */
-.bill-total-section{
-  margin:0 18px 14px;
-  background:linear-gradient(135deg,var(--pr),#F39C12);
-  border-radius:12px;
-  padding:14px 16px;
-  display:flex;justify-content:space-between;align-items:center;
-  box-shadow:0 4px 12px rgba(230,126,34,.3);
-}
-.bill-total-label{font-size:14px;font-weight:600;color:rgba(255,255,255,.9)}
-.bill-total-sub{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
-.bill-total-amount{font-size:28px;font-weight:700;color:#fff;line-height:1}
-
-/* Status badge */
-.bill-status-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 18px 6px;
-}
-.bill-status-badge{
-  display:inline-flex;align-items:center;gap:5px;
-  padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;
-  cursor:pointer;transition:all .15s;
-}
-.bill-status-badge:active{transform:scale(0.95)}
-.status-paid{background:var(--grl);color:var(--gr)}
-.status-pending{background:var(--rdl);color:var(--rd)}
-.bill-status-hint{font-size:11px;color:var(--mt)}
-
-/* Summary chips */
-.bill-summary-chips{
-  display:flex;gap:8px;padding:0 18px 14px;flex-wrap:wrap;
-}
-.bill-chip{
-  display:flex;align-items:center;gap:4px;
-  background:var(--bg);border:1px solid var(--bd);
-  border-radius:20px;padding:5px 12px;font-size:12px;color:var(--mt);
-}
-.bill-chip strong{color:var(--tx);font-weight:700}
-
-/* Bill footer with tear-off effect */
-.bill-footer{
-  background:var(--bg);
-  padding:12px 18px;
-  border-top:1px dashed var(--bd);
-  display:grid;grid-template-columns:1fr 1fr;gap:8px;
-}
-
-/* ===================== END BILL LAYOUT ===================== */
+/* BILLING */
+.bc{background:var(--card);border-radius:var(--ra);border:2px dashed var(--pr);padding:18px;margin-bottom:14px}
+.bh{text-align:center;border-bottom:1px solid var(--bd);padding-bottom:12px;margin-bottom:12px}
+.bs{font-size:19px;font-weight:700;color:var(--pr)}
+.bl{display:flex;justify-content:space-between;padding:7px 0;font-size:14px}
+.btl{display:flex;justify-content:space-between;padding:10px 0;font-size:17px;font-weight:700;border-top:1.5px solid var(--bd);margin-top:6px}
 
 /* EMPTY STATE */
 .es{text-align:center;padding:52px 20px;color:var(--mt)}
@@ -340,8 +205,6 @@ body{
 button,input,select{touch-action:manipulation}
 input,select{font-size:16px!important}
 </style>
-</head>
-<body>
 
 <!-- TOP HEADER -->
 <div class="header">
@@ -489,7 +352,6 @@ let editId=null;
 const MG=['જાન','ફેબ','માર','એપ','મે','જૂન','જુ','ઑગ','સ','ઑક','નવ','ડિ'];
 const ME=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const MFG=['જાન્યુઆરી','ફેબ્રુઆરી','માર્ચ','એપ્રિલ','મે','જૂન','જુલાઈ','ઑગસ્ટ','સપ્ટેમ્બર','ઑક્ટોબર','નવેમ્બર','ડિસેમ્બર'];
-const MFE=['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 function T(g,e){return lang==='g'?g:e}
 function dk(d){return d.toISOString().slice(0,10)}
@@ -611,7 +473,7 @@ function rDash(){
   document.getElementById('ddin').textContent=dn;
   document.getElementById('dact').textContent=ln+dn;
   document.getElementById('drev').textContent='₹'+totRev(t.getFullYear(),t.getMonth()).toLocaleString('en-IN');
-  document.getElementById('dmon').textContent=(lang==='g'?MFG[t.getMonth()]:MFE[t.getMonth()])+' '+t.getFullYear();
+  document.getElementById('dmon').textContent=(lang==='g'?MFG[t.getMonth()]:ME[t.getMonth()])+' '+t.getFullYear();
   document.getElementById('ddate').textContent=fd(t);
 }
 
@@ -679,7 +541,7 @@ function rReport(){
   const el=document.getElementById('rlist'),emp=document.getElementById('remp');
   if(!customers.length){el.innerHTML='';emp.style.display='block';return}
   emp.style.display='none';
-  const mn=lang==='g'?MFG[selM]:MFE[selM];
+  const mn=lang==='g'?MFG[selM]:ME[selM];
   el.innerHTML=`
     <div class="rh" style="margin-bottom:12px">
       <div class="rl">${mn} ${selY} • ${T('કુલ આવક','Total Revenue')}</div>
@@ -704,134 +566,34 @@ function togglePay(cid){
   const k=`${cid}_${selY}_${selM}`;payments[k]=!payments[k];save();rReport();rBilling();
 }
 
-/* ===================== IMPROVED BILLING RENDER ===================== */
 function rBilling(){
   monthChips('bmcs');
   const el=document.getElementById('blist');
-  if(!customers.length){
-    el.innerHTML=`<div class="es"><div class="ei">💰</div><div>${T('ગ્રાહક ઉમેરો','Add customers first')}</div></div>`;
-    return;
-  }
-  const mn=lang==='g'?MFG[selM]:MFE[selM];
-  const today=new Date();
-  const issueDate=today.getDate()+' '+(lang==='g'?MG[today.getMonth()]:ME[today.getMonth()])+' '+today.getFullYear();
-
-  el.innerHTML=customers.map((c,idx)=>{
+  if(!customers.length){el.innerHTML=`<div class="es"><div class="ei">💰</div><div>${T('ગ્રાહક ઉમેરો','Add customers first')}</div></div>`;return}
+  const mn=lang==='g'?MFG[selM]:ME[selM];
+  el.innerHTML=customers.map(c=>{
     const s=mStats(c.id,selY,selM);
-    const paid=payments[`${c.id}_${selY}_${selM}`]||false;
-    const lunchAmt=s.lunch*(c.lprice||0);
-    const dinnerAmt=s.dinner*(c.dprice||0);
-    const billNo='TF-'+selY+String(selM+1).padStart(2,'0')+'-'+String(idx+1).padStart(3,'0');
-
-    return`
-    <div class="bill-wrapper">
-      <!-- Top accent bar -->
-      <div class="bill-accent"></div>
-
-      <!-- Header: Brand + Bill number -->
-      <div class="bill-header">
-        <div class="bill-brand">
-          <div class="bill-logo">🍱</div>
-          <div>
-            <div class="bill-brand-name">${T('ટિફિન સેવા','Tiffin Service')}</div>
-            <div class="bill-brand-sub">${T('માસિક ટિફિન બિલ','Monthly Tiffin Invoice')}</div>
-          </div>
-        </div>
-        <div class="bill-number"># ${billNo}</div>
-      </div>
-
-      <!-- Customer info + Period -->
-      <div class="bill-info-row">
-        <div class="bill-customer-block">
-          <div class="bill-label">${T('ગ્રાહક','Customer')}</div>
-          <div class="bill-customer-name">${c.name}</div>
-          <div class="bill-customer-meta">
-            ${c.phone?'📞 '+c.phone:''}
-            ${c.phone&&c.addr?'<br>':''}
-            ${c.addr?'📍 '+c.addr:''}
-            ${!c.phone&&!c.addr?'—':''}
-          </div>
-        </div>
-        <div class="bill-period-block">
-          <div class="bill-label" style="text-align:right">${T('સમયગાળો','Period')}</div>
-          <div class="bill-period-month">${mn}</div>
-          <div class="bill-period-year">${selY}</div>
-          <div class="bill-date-issued">${T('તા.','Issued')} ${issueDate}</div>
-        </div>
-      </div>
-
-      <!-- Itemized table -->
-      <div class="bill-table">
-        <div class="bill-table-head">
-          <span class="bill-th">${T('વિગત','Description')}</span>
-          <span class="bill-th">${T('નંગ','Qty')}</span>
-          <span class="bill-th">${T('રકમ','Amount')}</span>
-        </div>
-        <div class="bill-row${s.lunch===0?' zero':''}">
-          <span class="bill-row-name"><span class="bill-row-icon">☀️</span>${T('બપોર ટિફિન','Lunch Tiffin')} <span style="color:var(--mt);font-size:11px;margin-left:4px">@ ₹${c.lprice}</span></span>
-          <span class="bill-row-qty">${s.lunch}</span>
-          <span class="bill-row-amt">₹${lunchAmt.toLocaleString('en-IN')}</span>
-        </div>
-        <div class="bill-row${s.dinner===0?' zero':''}">
-          <span class="bill-row-name"><span class="bill-row-icon">🌙</span>${T('રાત ટિફિન','Dinner Tiffin')} <span style="color:var(--mt);font-size:11px;margin-left:4px">@ ₹${c.dprice}</span></span>
-          <span class="bill-row-qty">${s.dinner}</span>
-          <span class="bill-row-amt">₹${dinnerAmt.toLocaleString('en-IN')}</span>
-        </div>
-      </div>
-
-      <!-- Subtotal lines -->
-      <div class="bill-subtotal-row">
-        <span>${T('કુલ ટિફિન','Total Tiffins')}</span>
-        <span style="font-weight:600;color:var(--tx)">${s.total} ${T('નંગ','pcs')}</span>
-      </div>
-      <hr class="bill-divider">
-
-      <!-- Grand Total -->
-      <div style="padding:0 18px 14px">
-        <div class="bill-total-section">
-          <div>
-            <div class="bill-total-label">${T('ચૂકવવાની રકમ','Amount Payable')}</div>
-            <div class="bill-total-sub">${mn} ${selY} • ${s.lunch}☀️ + ${s.dinner}🌙</div>
-          </div>
-          <div class="bill-total-amount">₹${s.amount.toLocaleString('en-IN')}</div>
-        </div>
-      </div>
-
-      <!-- Status + summary chips -->
-      <div class="bill-status-row">
-        <span class="bill-status-badge ${paid?'status-paid':'status-pending'}" onclick="markPaidBill(${c.id})">
-          ${paid?'✅ '+T('ભૂગ્તાન','Paid'):'⏳ '+T('બાકી','Pending')}
-        </span>
-        <span class="bill-status-hint">${paid?T('ચૂકવણી થઈ','Payment received'):T('ટૅપ કરો બદલવા','Tap to update')}</span>
-      </div>
-      <div class="bill-summary-chips">
-        <div class="bill-chip">☀️ <strong>${s.lunch}</strong> ${T('બપોર','Lunch')}</div>
-        <div class="bill-chip">🌙 <strong>${s.dinner}</strong> ${T('રાત','Dinner')}</div>
-        <div class="bill-chip">📦 <strong>${s.total}</strong> ${T('કુલ','Total')}</div>
-      </div>
-
-      <!-- Action buttons -->
-      <div class="bill-footer">
+    return`<div class="bc">
+      <div class="bh"><div class="bs">🍱 ${T('ટિફિન સેવા','Tiffin Service')}</div><div style="font-size:13px;color:var(--mt);margin-top:4px">${mn} ${selY}</div></div>
+      <div style="font-size:15px;font-weight:600">${c.name}</div>
+      <div style="font-size:12px;color:var(--mt);margin-bottom:10px">${c.phone||''} ${c.addr?'• '+c.addr:''}</div>
+      <div class="bl"><span style="color:var(--mt)">☀️ ${T('બપોર','Lunch')} × ${s.lunch}</span><span>₹${s.lunch*c.lprice}</span></div>
+      <div class="bl"><span style="color:var(--mt)">🌙 ${T('રાત','Dinner')} × ${s.dinner}</span><span>₹${s.dinner*c.dprice}</span></div>
+      <div class="btl"><span>${T('કુલ','Total')}</span><span style="color:var(--pr)">₹${s.amount}</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
         <button class="btn bwp bsm" onclick="sendWA(${c.id})">📱 WhatsApp</button>
-        <button class="btn bot bsm" onclick="markPaidBill(${c.id})">✅ ${T('ભૂગ્તાન','Mark Paid')}</button>
+        <button class="btn bot bsm" onclick="markPaid(${c.id})">✅ ${T('ભૂગ્તાન','Mark Paid')}</button>
       </div>
     </div>`;
   }).join('');
 }
-/* ===================== END BILLING RENDER ===================== */
 
-function markPaidBill(cid){
-  payments[`${cid}_${selY}_${selM}`]=true;
-  save();rBilling();rReport();
-}
-
-function markPaid(cid){markPaidBill(cid)}
+function markPaid(cid){payments[`${cid}_${selY}_${selM}`]=true;save();rBilling();rReport()}
 
 function sendWA(id){
   const c=customers.find(x=>x.id===id);if(!c)return;
   const s=mStats(id,selY,selM);
-  const mn=lang==='g'?MFG[selM]:MFE[selM];
-  const msg=`નમસ્તે ${c.name}, ${mn} ${selY} મહિને તમારું કુલ ટિફિન ${s.total} છે (${s.lunch} બપોર + ${s.dinner} રાત). તમારી કુલ રકમ ₹${s.amount} છે. કૃપા કરીને ચુકવણી કરો. આભાર! 🙏`;
+  const msg=`નમસ્તે ${c.name}, ${MFG[selM]} મહિને તમારું કુલ ટિફિન ${s.total} છે (${s.lunch} બપોર + ${s.dinner} રાત). તમારી કુલ રકમ ₹${s.amount} છે. કૃપા કરીને ચુકવણી કરો. આભાર! 🙏`;
   window.open(`https://wa.me/${c.phone?'91'+c.phone:''}?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
@@ -839,7 +601,7 @@ function showDet(id){
   const c=customers.find(x=>x.id===id);if(!c)return;
   const s=mStats(id,selY,selM);
   const paid=payments[`${id}_${selY}_${selM}`]||false;
-  const mn=lang==='g'?MFG[selM]:MFE[selM];
+  const mn=lang==='g'?MFG[selM]:ME[selM];
   document.getElementById('detContent').innerHTML=`
     <button class="mc2" onclick="closeAll()">✕</button>
     <div style="text-align:center;margin-bottom:18px">
