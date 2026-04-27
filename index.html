@@ -1,115 +1,256 @@
-
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>ટિફિન સેવા</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
   --pr:#E67E22;--prl:#FAD7A0;--prd:#A04000;
   --gr:#27AE60;--grl:#D5F5E3;--rd:#E74C3C;--rdl:#FADBD8;
   --bg:#FDF8F3;--card:#FFFFFF;--tx:#2C2C2A;--mt:#888780;
   --bd:rgba(0,0,0,0.12);--ra:14px;--sun:#F39C12;--moon:#6C5CE7;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
 }
 @media(prefers-color-scheme:dark){
   :root{--bg:#1A1714;--card:#252220;--tx:#F5F0EA;--mt:#B4B2A9;--bd:rgba(255,255,255,0.1);--prl:#5C3000;--grl:#0D3B22;--rdl:#4A1A14}
 }
-body{background:var(--bg);color:var(--tx);font-family:'Noto Sans Gujarati',Hind,sans-serif;font-size:16px;min-height:100vh}
-.app{max-width:420px;margin:0 auto;padding-bottom:80px}
-.nav{background:var(--pr);padding:14px 16px 10px;position:sticky;top:0;z-index:100}
+html{height:100%;-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--tx);
+  font-family:'Noto Sans Gujarati',Hind,sans-serif;
+  font-size:16px;min-height:100vh;min-height:100dvh;
+  overflow-x:hidden;
+}
+.app{
+  max-width:480px;
+  margin:0 auto;
+  padding-bottom:calc(80px + var(--safe-bottom));
+  min-height:100vh;min-height:100dvh;
+  position:relative;
+}
+
+/* NAV */
+.nav{
+  background:var(--pr);
+  padding:calc(14px + var(--safe-top)) 16px 10px;
+  padding-left:calc(16px + var(--safe-left));
+  padding-right:calc(16px + var(--safe-right));
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
+}
 .nav-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.nav-title{color:white;font-size:20px;font-weight:600}
-.lang-btn{background:rgba(255,255,255,0.25);border:none;color:white;padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;font-family:inherit}
+.nav-title{color:white;font-size:20px;font-weight:700;letter-spacing:-0.3px}
+.lang-btn{
+  background:rgba(255,255,255,0.25);border:none;color:white;
+  padding:7px 16px;border-radius:20px;font-size:13px;cursor:pointer;
+  font-family:inherit;font-weight:600;
+  -webkit-appearance:none;
+}
 .tabs{display:flex;gap:4px}
-.tab{flex:1;background:rgba(255,255,255,0.15);border:none;color:rgba(255,255,255,0.85);padding:8px 4px;border-radius:8px;font-size:11px;cursor:pointer;font-family:inherit;line-height:1.3;transition:all .15s}
-.tab.active{background:white;color:var(--pr);font-weight:600}
-.tab:active{transform:scale(0.97)}
+.tab{
+  flex:1;background:rgba(255,255,255,0.15);border:none;
+  color:rgba(255,255,255,0.9);padding:9px 4px;border-radius:10px;
+  font-size:11px;cursor:pointer;font-family:inherit;line-height:1.3;
+  transition:all .15s;min-height:54px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:2px;
+}
+.tab.active{background:white;color:var(--pr);font-weight:700;box-shadow:0 1px 4px rgba(0,0,0,0.1)}
+.tab:active{transform:scale(0.95);opacity:0.9}
+.tab-icon{font-size:18px;line-height:1}
+.tab-label{font-size:10px;font-weight:500}
+.tab.active .tab-label{font-weight:700}
+
+/* SCREENS */
 .screen{display:none;padding:16px}
 .screen.active{display:block}
-.card{background:var(--card);border-radius:var(--ra);border:0.5px solid var(--bd);padding:16px;margin-bottom:12px}
+
+/* CARDS */
+.card{background:var(--card);border-radius:var(--ra);border:0.5px solid var(--bd);padding:16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
 .sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.sc{background:var(--card);border-radius:10px;border:0.5px solid var(--bd);padding:14px}
+.sc{background:var(--card);border-radius:12px;border:0.5px solid var(--bd);padding:14px;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
 .sl{font-size:12px;color:var(--mt);margin-bottom:4px}
-.sv{font-size:26px;font-weight:700}
-.btn{width:100%;padding:15px;border:none;border-radius:var(--ra);font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn:active{transform:scale(0.98)}
+.sv{font-size:28px;font-weight:700;line-height:1.1}
+
+/* BUTTONS */
+.btn{
+  width:100%;padding:15px;border:none;border-radius:var(--ra);
+  font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;
+  transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px;
+  min-height:52px;-webkit-appearance:none;
+}
+.btn:active{transform:scale(0.98);opacity:0.9}
 .bpr{background:var(--pr);color:white}
 .bgr{background:var(--gr);color:white}
 .bot{background:transparent;border:2px solid var(--pr);color:var(--pr)}
 .bwp{background:#25D366;color:white}
-.bsm{padding:10px 16px;font-size:14px;width:auto}
+.bsm{padding:12px 16px;font-size:14px;width:auto;min-height:44px}
+
+/* REVENUE HERO */
 .rh{background:var(--pr);border-radius:var(--ra);padding:20px;color:white;margin-bottom:12px}
 .rl{font-size:13px;opacity:.85;margin-bottom:4px}
-.rv{font-size:34px;font-weight:700}
+.rv{font-size:36px;font-weight:700;line-height:1}
+
+/* FORM */
 .fg{margin-bottom:14px}
-.fl{font-size:14px;color:var(--mt);margin-bottom:6px;display:block}
-.fi{width:100%;padding:13px;border:1.5px solid var(--bd);border-radius:10px;font-size:16px;background:var(--card);color:var(--tx);font-family:inherit;outline:none}
+.fl{font-size:14px;color:var(--mt);margin-bottom:6px;display:block;font-weight:500}
+.fi{
+  width:100%;padding:14px;border:1.5px solid var(--bd);
+  border-radius:10px;font-size:16px;background:var(--card);color:var(--tx);
+  font-family:inherit;outline:none;-webkit-appearance:none;
+  transition:border-color .15s;
+}
 .fi:focus{border-color:var(--pr)}
-.ci{display:flex;align-items:center;justify-content:space-between;padding:14px;background:var(--card);border-radius:12px;border:0.5px solid var(--bd);margin-bottom:8px;cursor:pointer}
+
+/* CUSTOMER ITEM */
+.ci{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px;background:var(--card);border-radius:12px;
+  border:0.5px solid var(--bd);margin-bottom:8px;cursor:pointer;
+  box-shadow:0 1px 3px rgba(0,0,0,0.04);
+}
 .ci:active{background:var(--prl)}
 .cn{font-size:16px;font-weight:500}
-.cm{font-size:13px;color:var(--mt)}
-.av{width:44px;height:44px;border-radius:50%;background:var(--prl);color:var(--prd);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;flex-shrink:0}
-.db{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;background:var(--card);border-radius:12px;border:0.5px solid var(--bd);padding:12px 16px}
-.dn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--pr);padding:4px 8px}
-.dt{font-size:15px;font-weight:500}
+.cm{font-size:13px;color:var(--mt);margin-top:2px}
+.av{
+  width:46px;height:46px;border-radius:50%;background:var(--prl);
+  color:var(--prd);display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:18px;flex-shrink:0;
+}
+
+/* DATE NAV */
+.db{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:16px;background:var(--card);border-radius:12px;
+  border:0.5px solid var(--bd);padding:10px 16px;
+}
+.dn{background:none;border:none;font-size:26px;cursor:pointer;color:var(--pr);padding:6px 10px;border-radius:8px}
+.dn:active{background:var(--prl)}
+.dt{font-size:15px;font-weight:600}
 .ms{font-size:18px;font-weight:700;margin-bottom:14px}
 
-/* TIFFIN ROW — counter style */
-.tr{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--card);border-radius:12px;border:0.5px solid var(--bd);margin-bottom:8px}
-.ti{flex:1}
-.tn{font-size:15px;font-weight:500}
-.ta{font-size:12px;color:var(--mt)}
-.ctr{display:flex;align-items:center;gap:0}
-.cbtn{width:38px;height:38px;border:none;border-radius:10px;font-size:20px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .12s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cbtn:active{transform:scale(0.9)}
+/* TIFFIN ROW */
+.tr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 14px;background:var(--card);border-radius:12px;
+  border:0.5px solid var(--bd);margin-bottom:8px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.04);
+}
+.ti{flex:1;margin-right:10px;min-width:0}
+.tn{font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ta{font-size:12px;color:var(--mt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctr{display:flex;align-items:center;gap:0;flex-shrink:0}
+.cbtn{
+  width:40px;height:40px;border:none;border-radius:10px;
+  font-size:22px;font-weight:700;cursor:pointer;font-family:inherit;
+  transition:all .12s;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;-webkit-appearance:none;
+}
+.cbtn:active{transform:scale(0.88)}
 .cminus{background:var(--rdl);color:var(--rd)}
-.cminus:hover{background:var(--rd);color:white}
-.cval{min-width:40px;text-align:center;font-size:22px;font-weight:700;color:var(--tx)}
+.cminus:active{background:var(--rd);color:white}
+.cval{min-width:42px;text-align:center;font-size:22px;font-weight:700;color:var(--tx)}
 .cval.zero{color:var(--mt)}
 .cval.pos{color:var(--gr)}
 .cplus{background:var(--grl);color:var(--gr)}
-.cplus:hover{background:var(--gr);color:white}
+.cplus:active{background:var(--gr);color:white}
 
 /* MEAL SECTION */
-.ml{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:8px 12px;border-radius:8px;margin-bottom:10px;width:fit-content}
+.ml{
+  display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;
+  padding:8px 12px;border-radius:8px;margin-bottom:10px;width:fit-content;
+}
 .ml.sun{background:#FEF3C7;color:#92400E}
 .ml.moon{background:#EDE9FE;color:#4C1D95}
 
-/* PRICE PAIR in add-customer */
+/* PRICE PAIR */
 .price-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .price-box{background:var(--card);border:1.5px solid var(--bd);border-radius:12px;padding:12px}
 .price-icon{font-size:20px;margin-bottom:6px;display:block;text-align:center}
 .price-label{font-size:12px;color:var(--mt);text-align:center;margin-bottom:8px;display:block}
-.price-input{width:100%;padding:10px;border:1.5px solid var(--bd);border-radius:8px;font-size:16px;font-weight:600;text-align:center;background:var(--bg);color:var(--tx);font-family:inherit;outline:none}
+.price-input{
+  width:100%;padding:10px;border:1.5px solid var(--bd);border-radius:8px;
+  font-size:16px;font-weight:600;text-align:center;background:var(--bg);
+  color:var(--tx);font-family:inherit;outline:none;-webkit-appearance:none;
+}
 .price-input:focus{border-color:var(--pr)}
 .price-box.sun-box{border-color:rgba(243,156,18,0.4)}
 .price-box.moon-box{border-color:rgba(108,92,231,0.4)}
 
 /* MONTH CHIPS */
-.mcs{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px}
-.mc{padding:8px 16px;border-radius:20px;border:1.5px solid var(--bd);background:var(--card);font-size:14px;cursor:pointer;white-space:nowrap;font-family:inherit;color:var(--tx)}
+.mcs{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.mcs::-webkit-scrollbar{display:none}
+.mc{padding:9px 18px;border-radius:20px;border:1.5px solid var(--bd);background:var(--card);font-size:14px;cursor:pointer;white-space:nowrap;font-family:inherit;color:var(--tx);-webkit-appearance:none;flex-shrink:0}
 .mc.active{background:var(--pr);border-color:var(--pr);color:white;font-weight:600}
+
+/* REPORT ROW */
 .rr{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:0.5px solid var(--bd)}
 .rlb{font-size:14px;color:var(--mt)}
 .rlv{font-size:15px;font-weight:600}
 .rtl{background:var(--prl);border-radius:12px;padding:14px;margin-top:10px;text-align:center}
 .rtv{font-size:30px;font-weight:700;color:var(--pr)}
-.bdg{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500;display:inline-block}
+
+/* BADGE */
+.bdg{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:500;display:inline-block}
 .bdgp{background:var(--grl);color:var(--gr)}
 .bdgu{background:var(--rdl);color:var(--rd)}
+
+/* BILLING */
 .bc{background:var(--card);border-radius:var(--ra);border:2px dashed var(--pr);padding:18px;margin-bottom:14px}
 .bh{text-align:center;border-bottom:1px solid var(--bd);padding-bottom:12px;margin-bottom:12px}
 .bs{font-size:19px;font-weight:700;color:var(--pr)}
 .bl{display:flex;justify-content:space-between;padding:7px 0;font-size:14px}
 .btl{display:flex;justify-content:space-between;padding:10px 0;font-size:17px;font-weight:700;border-top:1.5px solid var(--bd);margin-top:6px}
-.es{text-align:center;padding:40px 20px;color:var(--mt)}
-.ei{font-size:44px;margin-bottom:10px}
-.fab{position:fixed;bottom:88px;right:18px;width:54px;height:54px;border-radius:50%;background:var(--pr);color:white;border:none;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:50}
-.fab:active{transform:scale(0.94)}
-.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end}
+
+/* EMPTY STATE */
+.es{text-align:center;padding:50px 20px;color:var(--mt)}
+.ei{font-size:48px;margin-bottom:12px}
+
+/* FAB */
+.fab{
+  position:fixed;
+  bottom:calc(88px + var(--safe-bottom));
+  right:calc(18px + var(--safe-right));
+  width:58px;height:58px;border-radius:50%;background:var(--pr);color:white;
+  border:none;font-size:28px;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;z-index:50;box-shadow:0 4px 16px rgba(230,126,34,0.4);
+  -webkit-appearance:none;
+}
+.fab:active{transform:scale(0.92)}
+
+/* MODAL */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
 .mo.open{display:flex}
-.md{background:var(--card);border-radius:20px 20px 0 0;padding:22px 20px;width:100%;max-height:88vh;overflow-y:auto}
+.md{
+  background:var(--card);border-radius:20px 20px 0 0;
+  padding:22px 20px;
+  padding-bottom:calc(22px + var(--safe-bottom));
+  width:100%;max-height:88vh;max-height:88dvh;overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
 .mt2{font-size:19px;font-weight:700;margin-bottom:18px}
-.mc2{float:right;background:none;border:none;font-size:22px;cursor:pointer;color:var(--mt)}
+.mc2{float:right;background:none;border:none;font-size:22px;cursor:pointer;color:var(--mt);padding:4px;-webkit-appearance:none}
+
+/* BOTTOM NAV area padding */
+.bottomnav-spacer{height:calc(80px + var(--safe-bottom))}
+
+/* Touch targets */
+button{cursor:pointer;touch-action:manipulation}
+input,select{touch-action:manipulation;font-size:16px!important} /* prevent iOS zoom */
+
+/* Responsive grid for larger phones */
+@media(min-width:400px){
+  .sv{font-size:32px}
+}
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <div class="app">
 <nav class="nav">
@@ -118,11 +259,22 @@ body{background:var(--bg);color:var(--tx);font-family:'Noto Sans Gujarati',Hind,
     <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
   </div>
   <div class="tabs">
-    <button class="tab active" onclick="go('dashboard',this)">📊<br><span class="t" data-g="ડૅશ" data-e="Dash">ડૅશ</span></button>
-    <button class="tab" onclick="go('customers',this)">👥<br><span class="t" data-g="ગ્રાહક" data-e="Cust.">ગ્રાહક</span></button>
-    <button class="tab" onclick="go('entry',this)">✏️<br><span class="t" data-g="એન્ટ્રી" data-e="Entry">એન્ટ્રી</span></button>
-    <button class="tab" onclick="go('report',this)">📋<br><span class="t" data-g="હિસાબ" data-e="Report">હિસાબ</span></button>
-    <button class="tab" onclick="go('billing',this)">💰<br><span class="t" data-g="બિલ" data-e="Bill">બિલ</span></button>
+    <button class="tab active" onclick="go('dashboard',this)">
+      <span class="tab-icon">📊</span>
+      <span class="tab-label t" data-g="ડૅશ" data-e="Dash">ડૅશ</span>
+    </button>
+    <button class="tab" onclick="go('entry',this)">
+      <span class="tab-icon">✏️</span>
+      <span class="tab-label t" data-g="એન્ટ્રી" data-e="Entry">એન્ટ્રી</span>
+    </button>
+    <button class="tab" onclick="go('report',this)">
+      <span class="tab-icon">📋</span>
+      <span class="tab-label t" data-g="હિસાબ" data-e="Report">હિસાબ</span>
+    </button>
+    <button class="tab" onclick="go('billing',this)">
+      <span class="tab-icon">💰</span>
+      <span class="tab-label t" data-g="બિલ" data-e="Bill">બિલ</span>
+    </button>
   </div>
 </nav>
 
@@ -136,21 +288,24 @@ body{background:var(--bg);color:var(--tx);font-family:'Noto Sans Gujarati',Hind,
   <div class="sg">
     <div class="sc"><div class="sl t" data-g="કુલ ગ્રાહકો" data-e="Customers">કુલ ગ્રાહકો</div><div class="sv" style="color:var(--pr)" id="dcust">0</div></div>
     <div class="sc"><div class="sl t" data-g="આજ કુલ ટિફિન" data-e="Today Total">આજ કુલ ટિફિન</div><div class="sv" style="color:var(--gr)" id="dact">0</div></div>
-    <div class="sc"><div class="sl t" data-g="☀️ આજ બપોર" data-e="☀️ Today Lunch">☀️ આજ બપોર</div><div class="sv" id="dlun">0</div></div>
-    <div class="sc"><div class="sl t" data-g="🌙 આજ રાત" data-e="🌙 Tonight">🌙 આજ રાત</div><div class="sv" id="ddin">0</div></div>
+    <div class="sc"><div class="sl t" data-g="☀️ આજ બપોર" data-e="☀️ Lunch">☀️ આજ બપોર</div><div class="sv" id="dlun">0</div></div>
+    <div class="sc"><div class="sl t" data-g="🌙 આજ રાત" data-e="🌙 Dinner">🌙 આજ રાત</div><div class="sv" id="ddin">0</div></div>
   </div>
-  <div class="card"><div class="sl t" data-g="આજની તારીખ" data-e="Today">આજની તારીખ</div><div style="font-size:18px;font-weight:600;margin-top:4px" id="ddate"></div></div>
+  <div class="card">
+    <div class="sl t" data-g="આજની તારીખ" data-e="Today">આજની તારીખ</div>
+    <div style="font-size:18px;font-weight:600;margin-top:4px" id="ddate"></div>
+  </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
-    <button class="btn bpr" onclick="go('entry',document.querySelectorAll('.tab')[2])">✏️ <span class="t" data-g="ટિફિન નોંધો" data-e="Mark Tiffin">ટિફિન નોંધો</span></button>
+    <button class="btn bpr" onclick="go('entry',document.querySelectorAll('.tab')[1])">✏️ <span class="t" data-g="ટિફિન નોંધો" data-e="Mark Tiffin">ટિફિન નોંધો</span></button>
     <button class="btn bot" onclick="openAdd()">➕ <span class="t" data-g="ગ્રાહક ઉમેરો" data-e="Add Customer">ગ્રાહક ઉમેરો</span></button>
   </div>
-</div>
 
-<!-- CUSTOMERS -->
-<div class="screen" id="screen-customers">
-  <div class="ms t" data-g="ગ્રાહક યાદી" data-e="Customer List">ગ્રાહક યાદી</div>
-  <div id="clist"></div>
-  <div class="es" id="cemp" style="display:none"><div class="ei">👥</div><div class="t" data-g="હજુ ગ્રાહક નથી" data-e="No customers yet">હજુ ગ્રાહક નથી</div></div>
+  <!-- Customer list on Dashboard -->
+  <div style="margin-top:16px">
+    <div class="ms t" data-g="ગ્રાહક યાદી" data-e="Customer List" style="font-size:16px;margin-bottom:10px">ગ્રાહક યાદી</div>
+    <div id="dash-clist"></div>
+    <div class="es" id="dash-cemp" style="display:none;padding:20px"><div class="ei" style="font-size:32px">👥</div><div class="t" data-g="હજુ ગ્રાહક નથી" data-e="No customers yet">હજુ ગ્રાહક નથી</div></div>
+  </div>
 </div>
 
 <!-- ENTRY -->
@@ -189,30 +344,27 @@ body{background:var(--bg);color:var(--tx);font-family:'Noto Sans Gujarati',Hind,
 
 <button class="fab" onclick="openAdd()">+</button>
 
-<!-- ADD CUSTOMER MODAL -->
+<!-- ADD / EDIT CUSTOMER MODAL -->
 <div class="mo" id="addModal">
 <div class="md">
   <button class="mc2" onclick="closeAll()">✕</button>
   <div class="mt2 t" id="modalTitle" data-g="ગ્રાહક ઉમેરો" data-e="Add Customer">ગ્રાહક ઉમેરો</div>
-  <div class="fg"><label class="fl t" data-g="નામ" data-e="Name">નામ</label><input class="fi" id="iname" type="text" placeholder="ગ્રાહકનું નામ"></div>
-  <div class="fg"><label class="fl t" data-g="મોબાઇલ નંબર" data-e="Phone">મોબાઇલ નંબર</label><input class="fi" id="iphone" type="tel" maxlength="10" placeholder="10 આંકડા"></div>
-  <div class="fg"><label class="fl t" data-g="સરનામું" data-e="Address">સરનામું</label><input class="fi" id="iaddr" type="text" placeholder="ઘરનું સરનામું"></div>
-
-  <!-- PRICE PAIR — separate lunch/dinner prices -->
+  <div class="fg"><label class="fl t" data-g="નામ" data-e="Name">નામ</label><input class="fi" id="iname" type="text" placeholder="ગ્રાહકનું નામ" autocomplete="off"></div>
+  <div class="fg"><label class="fl t" data-g="મોબાઇલ નંબર" data-e="Phone">મોબાઇલ નંબર</label><input class="fi" id="iphone" type="tel" maxlength="10" placeholder="10 આંકડા" inputmode="numeric"></div>
+  <div class="fg"><label class="fl t" data-g="સરનામું" data-e="Address">સરનામું</label><input class="fi" id="iaddr" type="text" placeholder="ઘરનું સરનામું" autocomplete="off"></div>
   <div class="fl t" data-g="ટિફિન ભાવ (₹)" data-e="Tiffin Price (₹)" style="margin-bottom:8px">ટિફિન ભાવ (₹)</div>
   <div class="price-pair">
     <div class="price-box sun-box">
       <span class="price-icon">☀️</span>
       <span class="price-label t" data-g="બપોર (Lunch)" data-e="Lunch">બપોર (Lunch)</span>
-      <input class="price-input" id="ilprice" type="number" placeholder="0" min="0">
+      <input class="price-input" id="ilprice" type="number" placeholder="0" min="0" inputmode="decimal">
     </div>
     <div class="price-box moon-box">
       <span class="price-icon">🌙</span>
       <span class="price-label t" data-g="રાત (Dinner)" data-e="Dinner">રાત (Dinner)</span>
-      <input class="price-input" id="idprice" type="number" placeholder="0" min="0">
+      <input class="price-input" id="idprice" type="number" placeholder="0" min="0" inputmode="decimal">
     </div>
   </div>
-
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
     <div><label class="fl t" data-g="☀️ બપોર?" data-e="☀️ Lunch?">☀️ બપોર?</label>
       <select class="fi" id="ilunch"><option value="yes">✅ હા</option><option value="no">❌ ના</option></select></div>
@@ -260,7 +412,6 @@ function go(name,tab){
   document.getElementById('screen-'+name).classList.add('active');
   tab.classList.add('active');
   if(name==='dashboard')rDash();
-  if(name==='customers')rCusts();
   if(name==='entry')rEntry();
   if(name==='report')rReport();
   if(name==='billing')rBilling();
@@ -321,7 +472,6 @@ function editCust(id){
   document.getElementById('addModal').classList.add('open');
 }
 
-/* COUNTER logic — stores integer count (0-10) per customer/meal/date */
 function getCount(cid,meal){
   const k=dk(curDate);
   return (entries[k]&&entries[k][cid]&&entries[k][cid][meal])||0;
@@ -363,55 +513,23 @@ function rDash(){
   document.getElementById('drev').textContent='₹'+totRev(t.getFullYear(),t.getMonth()).toLocaleString('en-IN');
   document.getElementById('dmon').textContent=(lang==='g'?MFG[t.getMonth()]:ME[t.getMonth()])+' '+t.getFullYear();
   document.getElementById('ddate').textContent=fd(t);
+  rDashCusts();
 }
 
-function rCusts(){
-  const el=document.getElementById('clist'),emp=document.getElementById('cemp');
+function rDashCusts(){
+  const el=document.getElementById('dash-clist'),emp=document.getElementById('dash-cemp');
   if(!customers.length){el.innerHTML='';emp.style.display='block';return}
   emp.style.display='none';
   el.innerHTML=customers.map(c=>`
     <div class="ci" onclick="showDet(${c.id})">
       <div class="av">${c.name.charAt(0)}</div>
-      <div style="flex:1;margin-left:12px">
+      <div style="flex:1;margin-left:12px;min-width:0">
         <div class="cn">${c.name}</div>
         <div class="cm">📞 ${c.phone||'—'}</div>
         <div class="cm">${c.lunch?'☀️₹'+c.lprice:''}${c.lunch&&c.dinner?' · ':''}${c.dinner?'🌙₹'+c.dprice:''} ${c.addr?'• '+c.addr:''}</div>
       </div>
-      <span style="color:var(--mt);font-size:18px">›</span>
+      <span style="color:var(--mt);font-size:20px;flex-shrink:0">›</span>
     </div>`).join('');
-}
-
-function showDet(id){
-  const c=customers.find(x=>x.id===id);if(!c)return;
-  const s=mStats(id,selY,selM);
-  const paid=payments[`${id}_${selY}_${selM}`]||false;
-  const mn=lang==='g'?MFG[selM]:ME[selM];
-  document.getElementById('detContent').innerHTML=`
-    <button class="mc2" onclick="closeAll()">✕</button>
-    <div style="text-align:center;margin-bottom:18px">
-      <div class="av" style="width:60px;height:60px;font-size:22px;margin:0 auto 10px">${c.name.charAt(0)}</div>
-      <div style="font-size:18px;font-weight:700">${c.name}</div>
-      <div style="font-size:13px;color:var(--mt)">${c.phone||''}</div>
-    </div>
-    <div class="card">
-      <div class="rr"><span class="rlb">${T('સરનામું','Address')}</span><span>${c.addr||'—'}</span></div>
-      <div class="rr"><span class="rlb">☀️ ${T('બપોર ભાવ','Lunch Price')}</span><span>₹${c.lprice}</span></div>
-      <div class="rr"><span class="rlb">🌙 ${T('રાત ભાવ','Dinner Price')}</span><span>₹${c.dprice}</span></div>
-      <div class="rr" style="border:none"><span class="rlb">${T('ટિફિન','Tiffin')}</span><span>${c.lunch?'☀️':''} ${c.dinner?'🌙':''}</span></div>
-    </div>
-    <div class="rtl" style="margin-bottom:14px">
-      <div style="font-size:13px;color:var(--prd)">${mn} ${selY} • ${T('કુલ','Total')}: ${s.lunch}☀️ + ${s.dinner}🌙 = ${s.total}</div>
-      <div class="rtv">₹${s.amount.toLocaleString('en-IN')}</div>
-      <span class="bdg ${paid?'bdgp':'bdgu'}" style="cursor:pointer" onclick="togglePay(${id})">${paid?'✅ '+T('ભૂગ્તાન','Paid'):'⏳ '+T('બાકી','Pending')}</span>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-      <button class="btn bwp bsm" onclick="sendWA(${id})">📱 ${T('વોટ્સએપ','WhatsApp')}</button>
-      <button class="btn bot bsm" onclick="editCust(${id})">✏️ ${T('સુધારો','Edit')}</button>
-    </div>
-    <div style="margin-top:8px">
-      <button class="btn bsm" style="border:1.5px solid var(--rd);color:var(--rd)" onclick="delCust(${id})">🗑️ ${T('કાઢો','Delete')}</button>
-    </div>`;
-  document.getElementById('detModal').classList.add('open');
 }
 
 function buildCounter(cid,meal){
@@ -520,7 +638,45 @@ function sendWA(id){
   window.open(`https://wa.me/${c.phone?'91'+c.phone:''}?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
-function renderAll(){rDash();rCusts();rEntry();rReport();rBilling()}
+function showDet(id){
+  const c=customers.find(x=>x.id===id);if(!c)return;
+  const s=mStats(id,selY,selM);
+  const paid=payments[`${id}_${selY}_${selM}`]||false;
+  const mn=lang==='g'?MFG[selM]:ME[selM];
+  document.getElementById('detContent').innerHTML=`
+    <button class="mc2" onclick="closeAll()">✕</button>
+    <div style="text-align:center;margin-bottom:18px">
+      <div class="av" style="width:60px;height:60px;font-size:22px;margin:0 auto 10px">${c.name.charAt(0)}</div>
+      <div style="font-size:18px;font-weight:700">${c.name}</div>
+      <div style="font-size:13px;color:var(--mt)">${c.phone||''}</div>
+    </div>
+    <div class="card">
+      <div class="rr"><span class="rlb">${T('સરનામું','Address')}</span><span>${c.addr||'—'}</span></div>
+      <div class="rr"><span class="rlb">☀️ ${T('બપોર ભાવ','Lunch Price')}</span><span>₹${c.lprice}</span></div>
+      <div class="rr"><span class="rlb">🌙 ${T('રાત ભાવ','Dinner Price')}</span><span>₹${c.dprice}</span></div>
+      <div class="rr" style="border:none"><span class="rlb">${T('ટિફિન','Tiffin')}</span><span>${c.lunch?'☀️':''} ${c.dinner?'🌙':''}</span></div>
+    </div>
+    <div class="rtl" style="margin-bottom:14px">
+      <div style="font-size:13px;color:var(--prd)">${mn} ${selY} • ${T('કુલ','Total')}: ${s.lunch}☀️ + ${s.dinner}🌙 = ${s.total}</div>
+      <div class="rtv">₹${s.amount.toLocaleString('en-IN')}</div>
+      <span class="bdg ${paid?'bdgp':'bdgu'}" style="cursor:pointer" onclick="togglePay(${id})">${paid?'✅ '+T('ભૂગ્તાન','Paid'):'⏳ '+T('બાકી','Pending')}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button class="btn bwp bsm" onclick="sendWA(${id})">📱 ${T('વોટ્સએપ','WhatsApp')}</button>
+      <button class="btn bot bsm" onclick="editCust(${id})">✏️ ${T('સુધારો','Edit')}</button>
+    </div>
+    <div style="margin-top:8px">
+      <button class="btn bsm" style="border:1.5px solid var(--rd);color:var(--rd)" onclick="delCust(${id})">🗑️ ${T('કાઢો','Delete')}</button>
+    </div>`;
+  document.getElementById('detModal').classList.add('open');
+}
+
+function renderAll(){rDash();rEntry();rReport();rBilling()}
+
+// Close modal on backdrop tap
+document.querySelectorAll('.mo').forEach(mo=>{
+  mo.addEventListener('click',function(e){if(e.target===this)closeAll()});
+});
 
 if(!customers.length){
   customers=[
