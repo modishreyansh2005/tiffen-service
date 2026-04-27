@@ -1,0 +1,536 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pr:#E67E22;--prl:#FAD7A0;--prd:#A04000;
+  --gr:#27AE60;--grl:#D5F5E3;--rd:#E74C3C;--rdl:#FADBD8;
+  --bg:#FDF8F3;--card:#FFFFFF;--tx:#2C2C2A;--mt:#888780;
+  --bd:rgba(0,0,0,0.12);--ra:14px;--sun:#F39C12;--moon:#6C5CE7;
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#1A1714;--card:#252220;--tx:#F5F0EA;--mt:#B4B2A9;--bd:rgba(255,255,255,0.1);--prl:#5C3000;--grl:#0D3B22;--rdl:#4A1A14}
+}
+body{background:var(--bg);color:var(--tx);font-family:'Noto Sans Gujarati',Hind,sans-serif;font-size:16px;min-height:100vh}
+.app{max-width:420px;margin:0 auto;padding-bottom:80px}
+.nav{background:var(--pr);padding:14px 16px 10px;position:sticky;top:0;z-index:100}
+.nav-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.nav-title{color:white;font-size:20px;font-weight:600}
+.lang-btn{background:rgba(255,255,255,0.25);border:none;color:white;padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;font-family:inherit}
+.tabs{display:flex;gap:4px}
+.tab{flex:1;background:rgba(255,255,255,0.15);border:none;color:rgba(255,255,255,0.85);padding:8px 4px;border-radius:8px;font-size:11px;cursor:pointer;font-family:inherit;line-height:1.3;transition:all .15s}
+.tab.active{background:white;color:var(--pr);font-weight:600}
+.tab:active{transform:scale(0.97)}
+.screen{display:none;padding:16px}
+.screen.active{display:block}
+.card{background:var(--card);border-radius:var(--ra);border:0.5px solid var(--bd);padding:16px;margin-bottom:12px}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.sc{background:var(--card);border-radius:10px;border:0.5px solid var(--bd);padding:14px}
+.sl{font-size:12px;color:var(--mt);margin-bottom:4px}
+.sv{font-size:26px;font-weight:700}
+.btn{width:100%;padding:15px;border:none;border-radius:var(--ra);font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn:active{transform:scale(0.98)}
+.bpr{background:var(--pr);color:white}
+.bgr{background:var(--gr);color:white}
+.bot{background:transparent;border:2px solid var(--pr);color:var(--pr)}
+.bwp{background:#25D366;color:white}
+.bsm{padding:10px 16px;font-size:14px;width:auto}
+.rh{background:var(--pr);border-radius:var(--ra);padding:20px;color:white;margin-bottom:12px}
+.rl{font-size:13px;opacity:.85;margin-bottom:4px}
+.rv{font-size:34px;font-weight:700}
+.fg{margin-bottom:14px}
+.fl{font-size:14px;color:var(--mt);margin-bottom:6px;display:block}
+.fi{width:100%;padding:13px;border:1.5px solid var(--bd);border-radius:10px;font-size:16px;background:var(--card);color:var(--tx);font-family:inherit;outline:none}
+.fi:focus{border-color:var(--pr)}
+.ci{display:flex;align-items:center;justify-content:space-between;padding:14px;background:var(--card);border-radius:12px;border:0.5px solid var(--bd);margin-bottom:8px;cursor:pointer}
+.ci:active{background:var(--prl)}
+.cn{font-size:16px;font-weight:500}
+.cm{font-size:13px;color:var(--mt)}
+.av{width:44px;height:44px;border-radius:50%;background:var(--prl);color:var(--prd);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;flex-shrink:0}
+.db{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;background:var(--card);border-radius:12px;border:0.5px solid var(--bd);padding:12px 16px}
+.dn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--pr);padding:4px 8px}
+.dt{font-size:15px;font-weight:500}
+.ms{font-size:18px;font-weight:700;margin-bottom:14px}
+
+/* TIFFIN ROW — counter style */
+.tr{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--card);border-radius:12px;border:0.5px solid var(--bd);margin-bottom:8px}
+.ti{flex:1}
+.tn{font-size:15px;font-weight:500}
+.ta{font-size:12px;color:var(--mt)}
+.ctr{display:flex;align-items:center;gap:0}
+.cbtn{width:38px;height:38px;border:none;border-radius:10px;font-size:20px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .12s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cbtn:active{transform:scale(0.9)}
+.cminus{background:var(--rdl);color:var(--rd)}
+.cminus:hover{background:var(--rd);color:white}
+.cval{min-width:40px;text-align:center;font-size:22px;font-weight:700;color:var(--tx)}
+.cval.zero{color:var(--mt)}
+.cval.pos{color:var(--gr)}
+.cplus{background:var(--grl);color:var(--gr)}
+.cplus:hover{background:var(--gr);color:white}
+
+/* MEAL SECTION */
+.ml{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:8px 12px;border-radius:8px;margin-bottom:10px;width:fit-content}
+.ml.sun{background:#FEF3C7;color:#92400E}
+.ml.moon{background:#EDE9FE;color:#4C1D95}
+
+/* PRICE PAIR in add-customer */
+.price-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.price-box{background:var(--card);border:1.5px solid var(--bd);border-radius:12px;padding:12px}
+.price-icon{font-size:20px;margin-bottom:6px;display:block;text-align:center}
+.price-label{font-size:12px;color:var(--mt);text-align:center;margin-bottom:8px;display:block}
+.price-input{width:100%;padding:10px;border:1.5px solid var(--bd);border-radius:8px;font-size:16px;font-weight:600;text-align:center;background:var(--bg);color:var(--tx);font-family:inherit;outline:none}
+.price-input:focus{border-color:var(--pr)}
+.price-box.sun-box{border-color:rgba(243,156,18,0.4)}
+.price-box.moon-box{border-color:rgba(108,92,231,0.4)}
+
+/* MONTH CHIPS */
+.mcs{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px}
+.mc{padding:8px 16px;border-radius:20px;border:1.5px solid var(--bd);background:var(--card);font-size:14px;cursor:pointer;white-space:nowrap;font-family:inherit;color:var(--tx)}
+.mc.active{background:var(--pr);border-color:var(--pr);color:white;font-weight:600}
+.rr{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:0.5px solid var(--bd)}
+.rlb{font-size:14px;color:var(--mt)}
+.rlv{font-size:15px;font-weight:600}
+.rtl{background:var(--prl);border-radius:12px;padding:14px;margin-top:10px;text-align:center}
+.rtv{font-size:30px;font-weight:700;color:var(--pr)}
+.bdg{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:500;display:inline-block}
+.bdgp{background:var(--grl);color:var(--gr)}
+.bdgu{background:var(--rdl);color:var(--rd)}
+.bc{background:var(--card);border-radius:var(--ra);border:2px dashed var(--pr);padding:18px;margin-bottom:14px}
+.bh{text-align:center;border-bottom:1px solid var(--bd);padding-bottom:12px;margin-bottom:12px}
+.bs{font-size:19px;font-weight:700;color:var(--pr)}
+.bl{display:flex;justify-content:space-between;padding:7px 0;font-size:14px}
+.btl{display:flex;justify-content:space-between;padding:10px 0;font-size:17px;font-weight:700;border-top:1.5px solid var(--bd);margin-top:6px}
+.es{text-align:center;padding:40px 20px;color:var(--mt)}
+.ei{font-size:44px;margin-bottom:10px}
+.fab{position:fixed;bottom:88px;right:18px;width:54px;height:54px;border-radius:50%;background:var(--pr);color:white;border:none;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:50}
+.fab:active{transform:scale(0.94)}
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end}
+.mo.open{display:flex}
+.md{background:var(--card);border-radius:20px 20px 0 0;padding:22px 20px;width:100%;max-height:88vh;overflow-y:auto}
+.mt2{font-size:19px;font-weight:700;margin-bottom:18px}
+.mc2{float:right;background:none;border:none;font-size:22px;cursor:pointer;color:var(--mt)}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="app">
+<nav class="nav">
+  <div class="nav-top">
+    <span class="nav-title" id="navTitle">🍱 ટિફિન સેવા</span>
+    <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="go('dashboard',this)">📊<br><span class="t" data-g="ડૅશ" data-e="Dash">ડૅશ</span></button>
+    <button class="tab" onclick="go('customers',this)">👥<br><span class="t" data-g="ગ્રાહક" data-e="Cust.">ગ્રાહક</span></button>
+    <button class="tab" onclick="go('entry',this)">✏️<br><span class="t" data-g="એન્ટ્રી" data-e="Entry">એન્ટ્રી</span></button>
+    <button class="tab" onclick="go('report',this)">📋<br><span class="t" data-g="હિસાબ" data-e="Report">હિસાબ</span></button>
+    <button class="tab" onclick="go('billing',this)">💰<br><span class="t" data-g="બિલ" data-e="Bill">બિલ</span></button>
+  </div>
+</nav>
+
+<!-- DASHBOARD -->
+<div class="screen active" id="screen-dashboard">
+  <div class="rh">
+    <div class="rl t" data-g="આ મહિને આવક" data-e="Monthly Revenue">આ મહિને આવક</div>
+    <div class="rv" id="drev">₹0</div>
+    <div style="font-size:13px;opacity:.8;margin-top:4px" id="dmon"></div>
+  </div>
+  <div class="sg">
+    <div class="sc"><div class="sl t" data-g="કુલ ગ્રાહકો" data-e="Customers">કુલ ગ્રાહકો</div><div class="sv" style="color:var(--pr)" id="dcust">0</div></div>
+    <div class="sc"><div class="sl t" data-g="આજ કુલ ટિફિન" data-e="Today Total">આજ કુલ ટિફિન</div><div class="sv" style="color:var(--gr)" id="dact">0</div></div>
+    <div class="sc"><div class="sl t" data-g="☀️ આજ બપોર" data-e="☀️ Today Lunch">☀️ આજ બપોર</div><div class="sv" id="dlun">0</div></div>
+    <div class="sc"><div class="sl t" data-g="🌙 આજ રાત" data-e="🌙 Tonight">🌙 આજ રાત</div><div class="sv" id="ddin">0</div></div>
+  </div>
+  <div class="card"><div class="sl t" data-g="આજની તારીખ" data-e="Today">આજની તારીખ</div><div style="font-size:18px;font-weight:600;margin-top:4px" id="ddate"></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
+    <button class="btn bpr" onclick="go('entry',document.querySelectorAll('.tab')[2])">✏️ <span class="t" data-g="ટિફિન નોંધો" data-e="Mark Tiffin">ટિફિન નોંધો</span></button>
+    <button class="btn bot" onclick="openAdd()">➕ <span class="t" data-g="ગ્રાહક ઉમેરો" data-e="Add Customer">ગ્રાહક ઉમેરો</span></button>
+  </div>
+</div>
+
+<!-- CUSTOMERS -->
+<div class="screen" id="screen-customers">
+  <div class="ms t" data-g="ગ્રાહક યાદી" data-e="Customer List">ગ્રાહક યાદી</div>
+  <div id="clist"></div>
+  <div class="es" id="cemp" style="display:none"><div class="ei">👥</div><div class="t" data-g="હજુ ગ્રાહક નથી" data-e="No customers yet">હજુ ગ્રાહક નથી</div></div>
+</div>
+
+<!-- ENTRY -->
+<div class="screen" id="screen-entry">
+  <div class="ms t" data-g="દૈનિક ટિફિન એન્ટ્રી" data-e="Daily Tiffin Entry">દૈનિક ટિફિન એન્ટ્રી</div>
+  <div class="db">
+    <button class="dn" onclick="chDate(-1)">‹</button>
+    <span class="dt" id="edate"></span>
+    <button class="dn" onclick="chDate(1)">›</button>
+  </div>
+  <div id="emp-entry" class="es" style="display:none"><div class="ei">📋</div><div class="t" data-g="ગ્રાહક ઉમેરો" data-e="Add customers first">ગ્રાહક ઉમેરો</div></div>
+  <div id="lsec">
+    <div class="ml sun">☀️ <span class="t" data-g="બપોર (Lunch)" data-e="Lunch">બપોર (Lunch)</span></div>
+    <div id="llist"></div>
+  </div>
+  <div id="dsec" style="margin-top:14px">
+    <div class="ml moon">🌙 <span class="t" data-g="રાત્રે (Dinner)" data-e="Dinner">રાત્રે (Dinner)</span></div>
+    <div id="dlist2"></div>
+  </div>
+</div>
+
+<!-- REPORT -->
+<div class="screen" id="screen-report">
+  <div class="ms t" data-g="માસિક હિસાબ" data-e="Monthly Report">માસિક હિસાબ</div>
+  <div class="mcs" id="rmcs"></div>
+  <div id="rlist"></div>
+  <div class="es" id="remp" style="display:none"><div class="ei">📊</div><div class="t" data-g="ડેટા નથી" data-e="No data">ડેટા નથી</div></div>
+</div>
+
+<!-- BILLING -->
+<div class="screen" id="screen-billing">
+  <div class="ms t" data-g="બિલ બનાવો" data-e="Generate Bills">બિલ બનાવો</div>
+  <div class="mcs" id="bmcs"></div>
+  <div id="blist"></div>
+</div>
+
+<button class="fab" onclick="openAdd()">+</button>
+
+<!-- ADD CUSTOMER MODAL -->
+<div class="mo" id="addModal">
+<div class="md">
+  <button class="mc2" onclick="closeAll()">✕</button>
+  <div class="mt2 t" id="modalTitle" data-g="ગ્રાહક ઉમેરો" data-e="Add Customer">ગ્રાહક ઉમેરો</div>
+  <div class="fg"><label class="fl t" data-g="નામ" data-e="Name">નામ</label><input class="fi" id="iname" type="text" placeholder="ગ્રાહકનું નામ"></div>
+  <div class="fg"><label class="fl t" data-g="મોબાઇલ નંબર" data-e="Phone">મોબાઇલ નંબર</label><input class="fi" id="iphone" type="tel" maxlength="10" placeholder="10 આંકડા"></div>
+  <div class="fg"><label class="fl t" data-g="સરનામું" data-e="Address">સરનામું</label><input class="fi" id="iaddr" type="text" placeholder="ઘરનું સરનામું"></div>
+
+  <!-- PRICE PAIR — separate lunch/dinner prices -->
+  <div class="fl t" data-g="ટિફિન ભાવ (₹)" data-e="Tiffin Price (₹)" style="margin-bottom:8px">ટિફિન ભાવ (₹)</div>
+  <div class="price-pair">
+    <div class="price-box sun-box">
+      <span class="price-icon">☀️</span>
+      <span class="price-label t" data-g="બપોર (Lunch)" data-e="Lunch">બપોર (Lunch)</span>
+      <input class="price-input" id="ilprice" type="number" placeholder="0" min="0">
+    </div>
+    <div class="price-box moon-box">
+      <span class="price-icon">🌙</span>
+      <span class="price-label t" data-g="રાત (Dinner)" data-e="Dinner">રાત (Dinner)</span>
+      <input class="price-input" id="idprice" type="number" placeholder="0" min="0">
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+    <div><label class="fl t" data-g="☀️ બપોર?" data-e="☀️ Lunch?">☀️ બપોર?</label>
+      <select class="fi" id="ilunch"><option value="yes">✅ હા</option><option value="no">❌ ના</option></select></div>
+    <div><label class="fl t" data-g="🌙 રાત?" data-e="🌙 Dinner?">🌙 રાત?</label>
+      <select class="fi" id="idinner"><option value="yes">✅ હા</option><option value="no">❌ ના</option></select></div>
+  </div>
+  <button class="btn bpr" onclick="saveCust()">💾 <span class="t" data-g="સેવ કરો" data-e="Save">સેવ કરો</span></button>
+</div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="mo" id="detModal"><div class="md" id="detContent"></div></div>
+
+</div>
+
+<script>
+let lang='g';
+let customers=JSON.parse(localStorage.getItem('tc_v2')||'[]');
+let entries=JSON.parse(localStorage.getItem('te_v2')||'{}');
+let payments=JSON.parse(localStorage.getItem('tp_v2')||'{}');
+let curDate=new Date();
+let selM=new Date().getMonth(),selY=new Date().getFullYear();
+let editId=null;
+
+const MG=['જાન','ફેબ','માર','એપ','મે','જૂન','જુ','ઑગ','સ','ઑક','નવ','ડિ'];
+const ME=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MFG=['જાન્યુઆરી','ફેબ્રુઆરી','માર્ચ','એપ્રિલ','મે','જૂન','જુલાઈ','ઑગસ્ટ','સપ્ટેમ્બર','ઑક્ટોબર','નવેમ્બર','ડિસેમ્બર'];
+
+function T(g,e){return lang==='g'?g:e}
+function dk(d){return d.toISOString().slice(0,10)}
+function fd(d){const m=lang==='g'?MG[d.getMonth()]:ME[d.getMonth()];return d.getDate()+' '+m+' '+d.getFullYear()}
+function save(){localStorage.setItem('tc_v2',JSON.stringify(customers));localStorage.setItem('te_v2',JSON.stringify(entries));localStorage.setItem('tp_v2',JSON.stringify(payments))}
+
+function toggleLang(){
+  lang=lang==='g'?'e':'g';
+  document.getElementById('langBtn').textContent=lang==='g'?'EN':'ગુ';
+  document.getElementById('navTitle').textContent=lang==='g'?'🍱 ટિફિન સેવા':'🍱 Tiffin Service';
+  document.querySelectorAll('.t').forEach(el=>el.textContent=lang==='g'?el.dataset.g:el.dataset.e);
+  renderAll();
+}
+
+function go(name,tab){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  tab.classList.add('active');
+  if(name==='dashboard')rDash();
+  if(name==='customers')rCusts();
+  if(name==='entry')rEntry();
+  if(name==='report')rReport();
+  if(name==='billing')rBilling();
+}
+
+function openAdd(){
+  editId=null;
+  ['iname','iphone','iaddr'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('ilprice').value='';
+  document.getElementById('idprice').value='';
+  document.getElementById('ilunch').value='yes';
+  document.getElementById('idinner').value='yes';
+  document.getElementById('modalTitle').textContent=T('ગ્રાહક ઉમેરો','Add Customer');
+  document.getElementById('addModal').classList.add('open');
+}
+
+function closeAll(){
+  document.getElementById('addModal').classList.remove('open');
+  document.getElementById('detModal').classList.remove('open');
+}
+
+function saveCust(){
+  const name=document.getElementById('iname').value.trim();
+  if(!name){alert(T('નામ જરૂરી','Name required'));return}
+  const obj={
+    id:editId||Date.now(),
+    name,
+    phone:document.getElementById('iphone').value.trim(),
+    addr:document.getElementById('iaddr').value.trim(),
+    lprice:parseFloat(document.getElementById('ilprice').value)||0,
+    dprice:parseFloat(document.getElementById('idprice').value)||0,
+    lunch:document.getElementById('ilunch').value==='yes',
+    dinner:document.getElementById('idinner').value==='yes'
+  };
+  if(editId!==null){const i=customers.findIndex(c=>c.id===editId);if(i>-1)customers[i]=obj}
+  else customers.push(obj);
+  save();closeAll();renderAll();
+}
+
+function delCust(id){
+  if(!confirm(T('ખાતરી? ગ્રાહક કાઢો?','Delete this customer?')))return;
+  customers=customers.filter(c=>c.id!==id);
+  save();closeAll();renderAll();
+}
+
+function editCust(id){
+  const c=customers.find(x=>x.id===id);if(!c)return;
+  editId=id;
+  document.getElementById('iname').value=c.name;
+  document.getElementById('iphone').value=c.phone||'';
+  document.getElementById('iaddr').value=c.addr||'';
+  document.getElementById('ilprice').value=c.lprice||'';
+  document.getElementById('idprice').value=c.dprice||'';
+  document.getElementById('ilunch').value=c.lunch?'yes':'no';
+  document.getElementById('idinner').value=c.dinner?'yes':'no';
+  document.getElementById('modalTitle').textContent=T('ગ્રાહક સુધારો','Edit Customer');
+  closeAll();
+  document.getElementById('addModal').classList.add('open');
+}
+
+/* COUNTER logic — stores integer count (0-10) per customer/meal/date */
+function getCount(cid,meal){
+  const k=dk(curDate);
+  return (entries[k]&&entries[k][cid]&&entries[k][cid][meal])||0;
+}
+function setCount(cid,meal,val){
+  const k=dk(curDate);
+  if(!entries[k])entries[k]={};
+  if(!entries[k][cid])entries[k][cid]={};
+  entries[k][cid][meal]=Math.max(0,Math.min(10,val));
+  save();rEntry();rDash();
+}
+
+function chDate(d){curDate=new Date(curDate);curDate.setDate(curDate.getDate()+d);rEntry()}
+
+function mStats(cid,y,m){
+  const c=customers.find(x=>x.id===cid);
+  if(!c)return{lunch:0,dinner:0,total:0,amount:0};
+  let lunch=0,dinner=0;
+  for(let day=1;day<=31;day++){
+    const d=new Date(y,m,day);if(d.getMonth()!==m)break;
+    const k=dk(d);const e=entries[k]&&entries[k][cid];
+    if(e){lunch+=(e.lunch||0);dinner+=(e.dinner||0)}
+  }
+  const total=lunch+dinner;
+  const amount=lunch*(c.lprice||0)+dinner*(c.dprice||0);
+  return{lunch,dinner,total,amount};
+}
+
+function totRev(y,m){return customers.reduce((s,c)=>s+mStats(c.id,y,m).amount,0)}
+
+function rDash(){
+  const t=new Date();const k=dk(t);
+  document.getElementById('dcust').textContent=customers.length;
+  let ln=0,dn=0;
+  customers.forEach(c=>{const e=entries[k]&&entries[k][c.id];if(e){ln+=(e.lunch||0);dn+=(e.dinner||0)}});
+  document.getElementById('dlun').textContent=ln;
+  document.getElementById('ddin').textContent=dn;
+  document.getElementById('dact').textContent=ln+dn;
+  document.getElementById('drev').textContent='₹'+totRev(t.getFullYear(),t.getMonth()).toLocaleString('en-IN');
+  document.getElementById('dmon').textContent=(lang==='g'?MFG[t.getMonth()]:ME[t.getMonth()])+' '+t.getFullYear();
+  document.getElementById('ddate').textContent=fd(t);
+}
+
+function rCusts(){
+  const el=document.getElementById('clist'),emp=document.getElementById('cemp');
+  if(!customers.length){el.innerHTML='';emp.style.display='block';return}
+  emp.style.display='none';
+  el.innerHTML=customers.map(c=>`
+    <div class="ci" onclick="showDet(${c.id})">
+      <div class="av">${c.name.charAt(0)}</div>
+      <div style="flex:1;margin-left:12px">
+        <div class="cn">${c.name}</div>
+        <div class="cm">📞 ${c.phone||'—'}</div>
+        <div class="cm">${c.lunch?'☀️₹'+c.lprice:''}${c.lunch&&c.dinner?' · ':''}${c.dinner?'🌙₹'+c.dprice:''} ${c.addr?'• '+c.addr:''}</div>
+      </div>
+      <span style="color:var(--mt);font-size:18px">›</span>
+    </div>`).join('');
+}
+
+function showDet(id){
+  const c=customers.find(x=>x.id===id);if(!c)return;
+  const s=mStats(id,selY,selM);
+  const paid=payments[`${id}_${selY}_${selM}`]||false;
+  const mn=lang==='g'?MFG[selM]:ME[selM];
+  document.getElementById('detContent').innerHTML=`
+    <button class="mc2" onclick="closeAll()">✕</button>
+    <div style="text-align:center;margin-bottom:18px">
+      <div class="av" style="width:60px;height:60px;font-size:22px;margin:0 auto 10px">${c.name.charAt(0)}</div>
+      <div style="font-size:18px;font-weight:700">${c.name}</div>
+      <div style="font-size:13px;color:var(--mt)">${c.phone||''}</div>
+    </div>
+    <div class="card">
+      <div class="rr"><span class="rlb">${T('સરનામું','Address')}</span><span>${c.addr||'—'}</span></div>
+      <div class="rr"><span class="rlb">☀️ ${T('બપોર ભાવ','Lunch Price')}</span><span>₹${c.lprice}</span></div>
+      <div class="rr"><span class="rlb">🌙 ${T('રાત ભાવ','Dinner Price')}</span><span>₹${c.dprice}</span></div>
+      <div class="rr" style="border:none"><span class="rlb">${T('ટિફિન','Tiffin')}</span><span>${c.lunch?'☀️':''} ${c.dinner?'🌙':''}</span></div>
+    </div>
+    <div class="rtl" style="margin-bottom:14px">
+      <div style="font-size:13px;color:var(--prd)">${mn} ${selY} • ${T('કુલ','Total')}: ${s.lunch}☀️ + ${s.dinner}🌙 = ${s.total}</div>
+      <div class="rtv">₹${s.amount.toLocaleString('en-IN')}</div>
+      <span class="bdg ${paid?'bdgp':'bdgu'}" style="cursor:pointer" onclick="togglePay(${id})">${paid?'✅ '+T('ભૂગ્તાન','Paid'):'⏳ '+T('બાકી','Pending')}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button class="btn bwp bsm" onclick="sendWA(${id})">📱 ${T('વોટ્સએપ','WhatsApp')}</button>
+      <button class="btn bot bsm" onclick="editCust(${id})">✏️ ${T('સુધારો','Edit')}</button>
+    </div>
+    <div style="margin-top:8px">
+      <button class="btn bsm" style="border:1.5px solid var(--rd);color:var(--rd)" onclick="delCust(${id})">🗑️ ${T('કાઢો','Delete')}</button>
+    </div>`;
+  document.getElementById('detModal').classList.add('open');
+}
+
+function buildCounter(cid,meal){
+  const val=getCount(cid,meal);
+  return `
+    <div class="ctr">
+      <button class="cbtn cminus" onclick="setCount(${cid},'${meal}',${val-1})">−</button>
+      <span class="cval ${val===0?'zero':'pos'}">${val}</span>
+      <button class="cbtn cplus" onclick="setCount(${cid},'${meal}',${val+1})">+</button>
+    </div>`;
+}
+
+function rEntry(){
+  document.getElementById('edate').textContent=fd(curDate);
+  const emp=document.getElementById('emp-entry');
+  const ls=document.getElementById('lsec'),ds=document.getElementById('dsec');
+  if(!customers.length){emp.style.display='block';ls.style.display='none';ds.style.display='none';return}
+  emp.style.display='none';ls.style.display='block';ds.style.display='block';
+  const lc=customers.filter(c=>c.lunch);
+  const dc=customers.filter(c=>c.dinner);
+  document.getElementById('llist').innerHTML=lc.length?lc.map(c=>`
+    <div class="tr">
+      <div class="ti"><div class="tn">${c.name}</div><div class="ta">${c.addr||''}</div></div>
+      ${buildCounter(c.id,'lunch')}
+    </div>`).join(''):`<div style="color:var(--mt);text-align:center;padding:10px;font-size:14px">${T('☀️ ગ્રાહક નથી','No lunch customers')}</div>`;
+  document.getElementById('dlist2').innerHTML=dc.length?dc.map(c=>`
+    <div class="tr">
+      <div class="ti"><div class="tn">${c.name}</div><div class="ta">${c.addr||''}</div></div>
+      ${buildCounter(c.id,'dinner')}
+    </div>`).join(''):`<div style="color:var(--mt);text-align:center;padding:10px;font-size:14px">${T('🌙 ગ્રાહક નથી','No dinner customers')}</div>`;
+}
+
+function monthChips(containerId,cb){
+  const el=document.getElementById(containerId);el.innerHTML='';
+  for(let i=0;i<6;i++){
+    const d=new Date();d.setMonth(d.getMonth()-i);
+    const m=d.getMonth(),y=d.getFullYear();
+    const lbl=(lang==='g'?MG[m]:ME[m])+' '+y;
+    const c=document.createElement('button');
+    c.className='mc'+(m===selM&&y===selY?' active':'');
+    c.textContent=lbl;c.onclick=()=>{selM=m;selY=y;rReport();rBilling()};
+    el.appendChild(c);
+  }
+}
+
+function rReport(){
+  monthChips('rmcs');
+  const el=document.getElementById('rlist'),emp=document.getElementById('remp');
+  if(!customers.length){el.innerHTML='';emp.style.display='block';return}
+  emp.style.display='none';
+  const mn=lang==='g'?MFG[selM]:ME[selM];
+  const tr=totRev(selY,selM);
+  el.innerHTML=`
+    <div class="rh" style="margin-bottom:12px">
+      <div class="rl">${mn} ${selY} • ${T('કુલ આવક','Total Revenue')}</div>
+      <div class="rv">₹${tr.toLocaleString('en-IN')}</div>
+    </div>
+    ${customers.map(c=>{
+      const s=mStats(c.id,selY,selM);
+      const paid=payments[`${c.id}_${selY}_${selM}`]||false;
+      return `<div class="card" style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div style="font-weight:600;font-size:16px">${c.name}</div>
+          <span class="bdg ${paid?'bdgp':'bdgu'}" style="cursor:pointer" onclick="togglePay(${c.id})">${paid?'✅ '+T('ભૂગ્તાન','Paid'):'⏳ '+T('બાકી','Pending')}</span>
+        </div>
+        <div class="rr"><span class="rlb">☀️ ${T('બપોર','Lunch')} × ₹${c.lprice}</span><span>${s.lunch} = ₹${s.lunch*c.lprice}</span></div>
+        <div class="rr"><span class="rlb">🌙 ${T('રાત','Dinner')} × ₹${c.dprice}</span><span>${s.dinner} = ₹${s.dinner*c.dprice}</span></div>
+        <div class="rr" style="border:none"><span class="rlb">${T('કુલ રકમ','Total')}</span><span style="font-size:18px;font-weight:700;color:var(--pr)">₹${s.amount}</span></div>
+      </div>`;
+    }).join('')}`;
+}
+
+function togglePay(cid){
+  const k=`${cid}_${selY}_${selM}`;payments[k]=!payments[k];save();rReport();rBilling();showDet(cid);
+}
+
+function rBilling(){
+  monthChips('bmcs');
+  const el=document.getElementById('blist');
+  if(!customers.length){el.innerHTML=`<div class="es"><div class="ei">💰</div><div>${T('ગ્રાહક ઉમેરો','Add customers first')}</div></div>`;return}
+  const mn=lang==='g'?MFG[selM]:ME[selM];
+  el.innerHTML=customers.map(c=>{
+    const s=mStats(c.id,selY,selM);
+    return `<div class="bc">
+      <div class="bh"><div class="bs">🍱 ${T('ટિફિન સેવા','Tiffin Service')}</div><div style="font-size:13px;color:var(--mt);margin-top:4px">${mn} ${selY}</div></div>
+      <div style="font-size:15px;font-weight:600">${c.name}</div>
+      <div style="font-size:12px;color:var(--mt);margin-bottom:10px">${c.phone||''} ${c.addr?'• '+c.addr:''}</div>
+      <div class="bl"><span style="color:var(--mt)">☀️ ${T('બપોર','Lunch')} × ${s.lunch}</span><span>₹${s.lunch*c.lprice}</span></div>
+      <div class="bl"><span style="color:var(--mt)">🌙 ${T('રાત','Dinner')} × ${s.dinner}</span><span>₹${s.dinner*c.dprice}</span></div>
+      <div class="btl"><span>${T('કુલ રકમ','Total Amount')}</span><span style="color:var(--pr)">₹${s.amount}</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+        <button class="btn bwp bsm" onclick="sendWA(${c.id})">📱 ${T('વોટ્સએપ','WhatsApp')}</button>
+        <button class="btn bot bsm" onclick="markPaid(${c.id})">✅ ${T('ભૂગ્તાન','Mark Paid')}</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function markPaid(cid){payments[`${cid}_${selY}_${selM}`]=true;save();rBilling();rReport()}
+
+function sendWA(id){
+  const c=customers.find(x=>x.id===id);if(!c)return;
+  const s=mStats(id,selY,selM);
+  const mn=MFG[selM];
+  const msg=`નમસ્તે ${c.name}, ${mn} મહિને તમારું કુલ ટિફિન ${s.total} છે (${s.lunch} બપોર + ${s.dinner} રાત). તમારી કુલ રકમ ₹${s.amount} છે. કૃપા કરીને ચુકવણી કરો. આભાર! 🙏`;
+  window.open(`https://wa.me/${c.phone?'91'+c.phone:''}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+function renderAll(){rDash();rCusts();rEntry();rReport();rBilling()}
+
+if(!customers.length){
+  customers=[
+    {id:1,name:'રમેશ પટેલ',phone:'9876543210',addr:'ગાંધી નગર',lprice:80,dprice:90,lunch:true,dinner:true},
+    {id:2,name:'સુષ્મા શાહ',phone:'9988776655',addr:'મણિનગર',lprice:70,dprice:0,lunch:true,dinner:false},
+    {id:3,name:'અજય મહેતા',phone:'9123456780',addr:'વાસ્ત્રાપુર',lprice:0,dprice:85,lunch:false,dinner:true},
+  ];
+  const k=dk(new Date());
+  entries[k]={1:{lunch:2,dinner:1},2:{lunch:1},3:{dinner:2}};
+  save();
+}
+renderAll();
+</script>
